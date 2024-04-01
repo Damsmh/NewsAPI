@@ -8,6 +8,7 @@ def print_news(response):
         for article in all_articles:
             if article['source']['name'] != '[Removed]':
                 print(article['source']['name'],
+                    article['publishedAt'][:10],
                     article['title'],
                     article['description'],
                     article['content'],
@@ -27,8 +28,8 @@ def main():
 
     while True:
 
-        querry = input('Введите заголовок новости: ')
-        params = {'q': querry, 'from': from_date, 'to': to_date, 'sortBy': 'popularity', 'language': 'en', 'page': 1, 'apiKey': key}
+        query = input('Введите заголовок новости: ')
+        params = {'q': query, 'from': from_date, 'to': to_date, 'sortBy': 'popularity', 'language': 'en', 'page': 1, 'apiKey': key}
         response = requests.get(url='https://newsapi.org/v2/everything?', params=params)
         if response.status_code == 200:
             print_news(response.json())
